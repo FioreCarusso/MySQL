@@ -1,4 +1,6 @@
-package basedatos;
+package abm;
+
+import abm.AdminBD;
 
 import java.sql.Statement;
 import java.text.ParseException;
@@ -16,7 +18,11 @@ public class BaseDatosABM {
 
 	public static void main(String[] args) {
 
+		/*Instancia de Connection*/
 		Connection conexion;
+
+
+		/*Exception try-catch*/
 		try {
 			conexion = AdminBD.obtenerConexion();
 
@@ -61,7 +67,7 @@ public class BaseDatosABM {
 //MOSTRAR MENU
 
 	private static int mostrarMenu(Scanner scan) {
-		System.out.println(" SISTEMA ABM de PERSONAS  ");
+		System.out.println(" Registro de personas.  ");
 		System.out.println("_____________________________________");
 
 		System.out.println("OPCIONES");
@@ -71,8 +77,8 @@ public class BaseDatosABM {
 		System.out.println("4 - Mostrar Listado");
 		System.out.println("5 - Buscar en el Listado");
 		System.out.println("0 - Salir");
-		int operacion = 0;
-		operacion = scan.nextInt();
+
+		int operacion = scan.nextInt();
 		return operacion;
 
 	}
@@ -80,8 +86,8 @@ public class BaseDatosABM {
 //ALTA DE DATOS/Insert
 
 	private static void alta(Connection conexion, Scanner scan) {
-		System.out.println("ALTA DE PERSONA. INGRESE SUS DATOS");
-		System.out.println("__________________________________");
+		System.out.println("Alta de persona. ");
+		System.out.println("_____________________________________");
 		System.out.println("");
 
 		System.out.println("Ingrese Nombre");
@@ -92,9 +98,11 @@ public class BaseDatosABM {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date fechaNa;
+
 		try {
 			fechaNa = sdf.parse(fechaNacimiento);
-			int edad = calculoEdad(fechaNa); // ACÁ
+
+			int edad = calculoEdad(fechaNa);
 
 			Statement stat = conexion.createStatement();
 
@@ -126,7 +134,7 @@ public class BaseDatosABM {
 
 			ResultSet resultado = stat.executeQuery("SELECT * FROM persona WHERE IDPersona=" + id + ";");
 
-			System.out.println("¿Está seguro de querer eliminar el siguiente registro? 1-SI | 2-NO");
+			System.out.println("ï¿½Estï¿½ seguro de querer eliminar el siguiente registro? 1-SI | 2-NO");
 
 			while (resultado.next()) {
 				Date fechaNa = resultado.getDate(4);
@@ -196,19 +204,19 @@ public class BaseDatosABM {
 		 */
 		try {
 			Statement stat = conexion.createStatement();
-			System.out.println("MODIFICACIÓN DE DATOS");
+			System.out.println("MODIFICACIï¿½N DE DATOS");
 			System.out.println("___________________________________________________");
 			System.out.println("");
 
 			System.out.println("");
-			System.out.println("¿Qué registro desea modificar?");
+			System.out.println("ï¿½Quï¿½ registro desea modificar?");
 			System.out.println("Ingrese: 1- NOMBRE.  2-FECHA DE NACIMIENTO.");
 			int modificacion = scan.nextInt();
 
 			System.out.println("Ingrese el ID");
 			int id = scan.nextInt();
 
-			System.out.println("Está seguro de querer modificar el siguiente registro? 1-SI | 2-NO");
+			System.out.println("Estï¿½ seguro de querer modificar el siguiente registro? 1-SI | 2-NO");
 
 			ResultSet resultado = stat.executeQuery("SELECT * FROM persona WHERE IDPersona= " + id + ";");
 
@@ -275,16 +283,16 @@ public class BaseDatosABM {
 
 	}
 
-	// CALCULO DE EDAD
+	// CALCULO DE EDAD - metodo
 
 	private static int calculoEdad(Date fechaNa) {
 		GregorianCalendar hoy = new GregorianCalendar();
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(fechaNa);
 
-		int añoActual = hoy.get(Calendar.YEAR);
+		int anioActual = hoy.get(Calendar.YEAR);
 
-		int añoNacimiento = gc.get(Calendar.YEAR);
+		int anioNacimiento = gc.get(Calendar.YEAR);
 
 		int mesActual = hoy.get(Calendar.MONTH);
 		int mesNacimiento = gc.get(Calendar.MONTH);
@@ -292,7 +300,7 @@ public class BaseDatosABM {
 		int diaActual = hoy.get(Calendar.DATE);
 		int diaNacimiento = gc.get(Calendar.DATE);
 		int difEdad = 0;
-		difEdad = añoActual - añoNacimiento;
+		difEdad = anioActual - anioNacimiento;
 
 		if (mesActual < mesNacimiento) {
 			difEdad = difEdad - 1;

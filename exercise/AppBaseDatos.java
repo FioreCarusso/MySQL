@@ -1,4 +1,6 @@
-package basedatos;
+package exercise;
+
+import abm.AdminBD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,7 +11,12 @@ public class AppBaseDatos {
 
 	public static void main(String[] args) {
 
-		Statement stat; // declaro obj statement
+
+
+
+		/*objetos statement*/
+
+		Statement stat;
 
 		try {
 			Connection conexion = AdminBD.obtenerConexion(); // creo objeto conexion

@@ -1,4 +1,4 @@
-package basedatos;
+package abm;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,14 +6,15 @@ import java.sql.SQLException;
 
 public class AdminBD {
 
-	public static Connection obtenerConexion() throws ClassNotFoundException, SQLException {
-		Connection con = null;
+    public static Connection obtenerConexion() throws ClassNotFoundException, SQLException {
 
-		Class.forName("com.mysql.jdbc.Driver");
+        Connection conexion = null;
 
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/schemaprueba", "root", "");
+        Class.forName("com.mysql.jdbc.Driver");
 
-		return con;
-	}
+        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/schemaprueba", "root", "");
+
+        return conexion;
+    }
 
 }
